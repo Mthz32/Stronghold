@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(OnRange))]
-public class Movement : MonoBehaviour {
+[RequireComponent(typeof(EnemyRangeDetector))]
+public class EnemyMovement : MonoBehaviour {
 
-	[Header("Agent Settings")]
 	private Health target;
 	private NavMeshAgent agent;
-	private OnRange rangeDetector;
+	private EnemyRangeDetector rangeDetector;
 
-	public void setup(Health _target){
+	public void setup(Health _target, float range, float vel, float acc){
 		target = _target;
 		agent = (NavMeshAgent) this.gameObject.GetComponent(typeof(NavMeshAgent));
-		rangeDetector = (OnRange) this.gameObject.GetComponent(typeof(OnRange));
-		rangeDetector.setup(this);
+		agent.stoppingDistance = (range > 0.5f) ? (range - 0.2f) : range;
+		agent.acceleration = acc;
+		agent.speed = vel;
+		rangeDetector = (EnemyRangeDetector) this.gameObject.GetComponent(typeof(EnemyRangeDetector));
+		rangeDetector.setup(this, range);
 		SetDestinationTo(target);
 	}
 
@@ -46,9 +48,10 @@ public class Movement : MonoBehaviour {
 	}
 	public void setTarget(Health target_) {
 		target = target_;
+		rangeDetector.setNewTarget(target);
 	}
 
-	public OnRange getRD(){
+	public EnemyRangeDetector getRD(){
 		return rangeDetector;
 	}
 }

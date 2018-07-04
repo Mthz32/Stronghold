@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(Damage))]
-public class OnRange : MonoBehaviour {
+[RequireComponent(typeof(SphereCollider))]
+public class EnemyRangeDetector : MonoBehaviour {
 
-	private Movement movement;
+	private EnemyMovement movement;
 	private Damage dmgController;
 
 	private int[] targeteable_layers = new int[] {11};
@@ -14,10 +15,13 @@ public class OnRange : MonoBehaviour {
 
 	private bool targetOnRange;
 
-	public void setup(Movement m){
+	public void setup(EnemyMovement m, float range){
 			movement = m;
 			targetOnRange = false;
 			dmgController = (Damage) this.gameObject.GetComponent(typeof(Damage));
+			SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
+			sc.radius = range;
+			sc.isTrigger = true;
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -43,7 +47,22 @@ public class OnRange : MonoBehaviour {
 		}
 	}
 
+	public void remove(Health t){
+		posible_targets.Remove(t);
+	}
+
 	public bool isTargetOnRange(){
 		return ((movement.getTarget() != null) && (targetOnRange));
+	}
+
+	public void setNewTarget(Health t){
+		targetOnRange = (posible_targets.IndexOf(t) == -1) ? false : true;
+		if (targetOnRange){
+			movement.stopAgent();
+			StartCoroutine(dmgController.inRange(movement.getTarget()));
+		}else {
+			if (t != null) movement.startAgent();
+			else movement.stopAgent();
+		}
 	}
 }

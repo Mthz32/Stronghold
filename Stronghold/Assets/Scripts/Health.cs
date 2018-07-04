@@ -17,14 +17,19 @@ public class Health : MonoBehaviour {
 	}
 
 	//Get damage over hp field and update healthbar
-	public bool getDmg(int amount){
+	public void getDmg(int amount){
 		hp -= amount;
 		HealthBar.setHP(hp, maxHP);
 
-		if (hp < 0){
+		if (!alive()){
+			//Die
+			//TEMPORAL**************************
 			this.gameObject.SetActive(false);
+			//**********************************
 		}
+	}
 
-		return (hp <= 0);
+	public bool alive(){
+		return (hp > 0);
 	}
 }
