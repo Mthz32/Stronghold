@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 223099632185218032}
   - component: {fileID: 114146582696016646}
   - component: {fileID: 114978289833394304}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 224783209001380724}
   - component: {fileID: 222162842512117930}
   - component: {fileID: 114314564248334868}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 224519461924215964}
   - component: {fileID: 222282723038552488}
   - component: {fileID: 114750175894301742}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Heath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,13 +264,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fbb88a9cdc8d4349b1c0b7e15d21031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHP: 100
+  startingHP: 400
   HealthBar: {fileID: 114978289833394304}
-  atack_range: 2
-  velocity: 7
+  atackRange: 5
+  velocity: 10
   aceleration: 60
-  atack_speed: 1
-  dmg: 150
+  atackSpeed: 5
+  dmg: 10
+  turretPriority: 1
 --- !u!114 &114687146791818728
 MonoBehaviour:
   m_ObjectHideFlags: 1

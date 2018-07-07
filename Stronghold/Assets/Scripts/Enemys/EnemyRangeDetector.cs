@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(EnemyMovement))]
 [RequireComponent(typeof(Damage))]
 [RequireComponent(typeof(SphereCollider))]
 public class EnemyRangeDetector : MonoBehaviour {
 
+	private Enemy me;
 	private EnemyMovement movement;
 	private Damage dmgController;
 
-	private int[] targeteable_layers = new int[] {11};
-	private List<Health> posible_targets = new List<Health>();
+	private int[] targeteable_layers = new int[] {11, 12};
 
 	private bool targetOnRange;
+	private List<Health> posible_targets = new List<Health>();
 
-	public void setup(EnemyMovement m, float range){
-			movement = m;
-			targetOnRange = false;
-			dmgController = (Damage) this.gameObject.GetComponent(typeof(Damage));
-			SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
-			sc.radius = range;
-			sc.isTrigger = true;
+	public void setup(float range){
+		me  = (Enemy) this.gameObject.GetComponent(typeof(Enemy));
+		movement = (EnemyMovement) this.gameObject.GetComponent(typeof(EnemyMovement));
+		dmgController = (Damage) this.gameObject.GetComponent(typeof(Damage));
+
+		SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
+		sc.radius = range;
+		sc.isTrigger = true;
+
+		targetOnRange = false;
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -32,6 +38,8 @@ public class EnemyRangeDetector : MonoBehaviour {
 				targetOnRange = true;
 				movement.stopAgent();
 				StartCoroutine(dmgController.inRange(movement.getTarget()));
+			}else if (me.ShouldAtack(t)){
+				me.SetTarget(t);
 			}
 		}
 	}

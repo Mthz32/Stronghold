@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(EnemyMovement))]
+[RequireComponent(typeof(EnemyRangeDetector))]
 [RequireComponent(typeof(Damage))]
 public class Enemy : MonoBehaviour {
 
-	private Spawn spawnManager;
+	private List<Health> targets;
 
 	[Header("Health Settings")]
 	public int startingHP = 100;
@@ -17,35 +19,50 @@ public class Enemy : MonoBehaviour {
 	[Tooltip("HealthBarPrefab must be added as a child and dragged here")]
 	private HealthBarController HealthBar;
 
-	//Fully hidden
 	[Header("Movement Settings")]
-	public float atack_range;
+	public float atackRange;
 	public float velocity;
 	public float aceleration;
 	private EnemyMovement movementController;
+	private EnemyRangeDetector rd;
 
 	[Header("Damage Settings")]
-	public float atack_speed;
+	public float atackSpeed;
 	public int dmg;
+	public bool turretPriority;
 	private Damage dmgController;
 
-
-	public void setup(Spawn spawn, Health _target) {
-		spawnManager = spawn;
+	public void setup(List<Health> _targets){
+		targets = _targets;
 
 		health = (Health) this.gameObject.GetComponent(typeof(Health));
 		health.setup(startingHP, HealthBar);
 
 		movementController = (EnemyMovement) this.gameObject.GetComponent(typeof(EnemyMovement));
-		movementController.setup(_target, atack_range, velocity, aceleration);
+		movementController.setup(targets.ElementAt(0), atackRange, velocity, aceleration);
+		rd = (EnemyRangeDetector) this.gameObject.GetComponent(typeof(EnemyRangeDetector));
+		rd.setup(atackRange);
+		movementController.SetDestinationTo(movementController.getTarget());
 
 		dmgController = (Damage) this.gameObject.GetComponent(typeof(Damage));
-		dmgController.setup(movementController.getRD(), atack_speed ,dmg);
+		dmgController.setup(atackSpeed ,dmg);
 	}
 
 	public void nextTarget(){
-		Health newTarget = spawnManager.nextTarget();
-		movementController.setTarget(newTarget);
+		if ((targets.Count != 0) && (!targets.ElementAt(0).alive())) targets.RemoveAt(0);
+		Health newTarget = (targets.Count == 0)
+			? null
+		 	: targets.ElementAt(0);
+		SetTarget(newTarget);
+	}
+
+	public void SetTarget(Health t){
+		movementController.setTarget(t);
+		rd.setNewTarget(t);
+	}
+
+	public bool ShouldAtack(Health newTarget){
+		return (turretPriority && newTarget.gameObject.layer == 12);
 	}
 
 }

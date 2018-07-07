@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(EnemyRangeDetector))]
 public class Damage : MonoBehaviour {
+
+	private Enemy me;
+	private EnemyRangeDetector rangeDetector;
 
 	private float atack_speed;
 	private int damage;
-	private EnemyRangeDetector rangeDetector;
-	private Enemy me;
 
-	public void setup(EnemyRangeDetector rd, float _as, int dmg){
-		rangeDetector = rd;
+	public void setup(float _as, int dmg){
 		me = (Enemy) this.gameObject.GetComponent(typeof(Enemy));
+		rangeDetector = (EnemyRangeDetector) this.gameObject.GetComponent(typeof(EnemyRangeDetector));
 
 		atack_speed = _as;
 		damage = dmg;
@@ -26,12 +28,13 @@ public class Damage : MonoBehaviour {
 				target.getDmg(damage);
 				if (!target.alive()){
 					//Get gold, lo que toque
-					rangeDetector.remove(target);
-					me.nextTarget();
+					target.Die();
 					break;
 				}
 			}
 		}
-		//Start the agent
+		rangeDetector.remove(target);
+		me.nextTarget();
 	}
+
 }

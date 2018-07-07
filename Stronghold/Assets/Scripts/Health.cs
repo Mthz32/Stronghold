@@ -16,17 +16,22 @@ public class Health : MonoBehaviour {
 		HealthBar.setHP(hp, maxHP);
 	}
 
+	public void reset(int _maxHP){
+		hp = _maxHP;
+		maxHP = _maxHP;
+		HealthBar.setHP(hp, maxHP);
+	}
+
 	//Get damage over hp field and update healthbar
 	public void getDmg(int amount){
 		hp -= amount;
 		HealthBar.setHP(hp, maxHP);
+	}
 
-		if (!alive()){
-			//Die
-			//TEMPORAL**************************
-			this.gameObject.SetActive(false);
-			//**********************************
-		}
+	public void Die(){
+		//TEMPORAL**************************
+		Destroy(this.gameObject);
+		//**********************************
 	}
 
 	public bool alive(){
