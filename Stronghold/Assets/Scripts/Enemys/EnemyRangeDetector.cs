@@ -31,6 +31,7 @@ public class EnemyRangeDetector : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		if (other.isTrigger) return;
 		if (targeteable_layers.Contains(other.gameObject.layer)){
 			Health t = (Health) other.gameObject.GetComponent(typeof(Health));
 			posible_targets.Add(t);
@@ -45,6 +46,7 @@ public class EnemyRangeDetector : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider	other){
+		if (other.isTrigger) return;
 		if (targeteable_layers.Contains(other.gameObject.layer)){
 			Health t = (Health) other.gameObject.GetComponent(typeof(Health));
 			posible_targets.Remove(t);

@@ -802,7 +802,9 @@ GameObject:
   - component: {fileID: 1092598843}
   - component: {fileID: 1092598844}
   - component: {fileID: 1092598840}
+  - component: {fileID: 1092598846}
   - component: {fileID: 1092598842}
+  - component: {fileID: 1092598845}
   - component: {fileID: 1092598841}
   m_Layer: 12
   m_Name: Turret
@@ -836,6 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHP: 500
   HealthBar: {fileID: 536299265}
+  range: 20
 --- !u!114 &1092598842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,11 +875,34 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1092598845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092598839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38236c0840c9a144da6e8cc4a3102c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &1092598846
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092598839}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1186189165
 GameObject:
   m_ObjectHideFlags: 0
