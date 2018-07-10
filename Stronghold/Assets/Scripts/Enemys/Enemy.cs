@@ -68,4 +68,11 @@ public class Enemy : MonoBehaviour {
 		return (stats.turretPriority && newTarget.gameObject.layer == 12);
 	}
 
+	public EnemyStats getStats(){
+		return stats;
+	}
+	public float getDistanceToTarget(){
+		return movementController.distance();
+	}
+
 }

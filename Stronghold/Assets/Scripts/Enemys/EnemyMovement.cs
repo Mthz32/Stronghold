@@ -45,4 +45,8 @@ public class EnemyMovement : MonoBehaviour {
 	public void setTarget(Health target_) {
 		target = target_;
 	}
+
+	public float distance(){
+		return agent.remainingDistance;
+	}
 }

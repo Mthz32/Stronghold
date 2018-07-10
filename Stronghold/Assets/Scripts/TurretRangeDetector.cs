@@ -7,9 +7,10 @@ using System.Linq;
 public class TurretRangeDetector : MonoBehaviour {
 
 	private int[] targeteable_layers = new int[] {10};
-	private List<Health> posible_targets = new List<Health>();
+	private List<Enemy> posible_targets = new List<Enemy>();
 
 	private int[] filter_method_order = new int[] {0};
+	private bool searchForMaxHP = true;
 
 	public void setup(float range){
 		SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
@@ -20,7 +21,7 @@ public class TurretRangeDetector : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.isTrigger) return;
 		if (targeteable_layers.Contains(other.gameObject.layer)){
-			Health t = (Health) other.gameObject.GetComponent(typeof(Health));
+			Enemy t = (Enemy) other.gameObject.GetComponent(typeof(Enemy));
 			posible_targets.Add(t);
 		}
 	}
@@ -28,15 +29,16 @@ public class TurretRangeDetector : MonoBehaviour {
 	void OnTriggerExit(Collider	other){
 		if (other.isTrigger) return;
 		if (targeteable_layers.Contains(other.gameObject.layer)){
-			Health t = (Health) other.gameObject.GetComponent(typeof(Health));
+			Enemy t = (Enemy) other.gameObject.GetComponent(typeof(Enemy));
 			posible_targets.Remove(t);
 		}
 	}
 
-	public Health getBestTarget(){
+	public Enemy getBestTarget(){
+		posible_targets = posible_targets.Where(t => t != null).ToList();
 		if (posible_targets.Count == 0) return null;
 
-		List<Health> targets = new List<Health>(posible_targets);
+		List<Enemy> targets = new List<Enemy>(posible_targets);
 
 		int iterations = 0;
 		while((targets.Count > 1) && (iterations < filter_method_order.Length)){
@@ -50,13 +52,33 @@ public class TurretRangeDetector : MonoBehaviour {
 		return targets.ElementAt(0);
 	}
 
-	private List<Health> filter(List<Health> targets, int method){
+	private List<Enemy> filter(List<Enemy> targets, int method){
 		// case 0 : get the closest one to the turret
+		// case 1 : get the highest lvl
+		// case 2 : get the closest to its target
+		// case 3 : get the enemy with more dmg
+		// case 4 : get the enemy with more/less hp
 		// default: get a random one
 		switch (method) {
 			case 0:
-				float min_d = targets.Min(t => distanceToTarget(t));
-				return targets.Where(t => distanceToTarget(t) <= min_d + 1).ToList();
+				float d_toTower = targets.Min(t => distanceToTarget(t));
+				return targets.Where(t => distanceToTarget(t) <= d_toTower + 1).ToList();
+			case 1:
+				int max_lvl = targets.Max(t => t.getStats().lvl);
+				return targets.Where(t => t.getStats().lvl >= max_lvl).ToList();
+			case 2:
+				float d_toTarget = targets.Min(t => t.getDistanceToTarget());
+				return targets.Where(t => t.getDistanceToTarget() <= d_toTarget + 1).ToList();
+			case 3:
+				int max_dmg = targets.Max(t => t.getStats().dmg);
+				return targets.Where(t => t.getStats().dmg >= max_dmg).ToList();
+			case 4:
+				int limit_hp = (searchForMaxHP)
+					? targets.Max(t => t.getStats().HP)
+					: targets.Min(t => t.getStats().HP);
+				return (searchForMaxHP)
+				 	? targets.Where(t => t.getStats().HP >= limit_hp).ToList()
+					: targets.Where(t => t.getStats().HP <= limit_hp).ToList();
 			default:
 				int index = Random.Range(0, targets.Count - 1);
 				for (int i = targets.Count - 1; i >= 0; i--) {
@@ -66,7 +88,7 @@ public class TurretRangeDetector : MonoBehaviour {
 		}
 	}
 
-	private float distanceToTarget(Health target){
+	private float distanceToTarget(Enemy target){
 		return Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
 	}
 
