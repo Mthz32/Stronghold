@@ -30,6 +30,7 @@ public class Ayuntamiento : MonoBehaviour {
 
 	void upgrade(){
 		if (lvl < maxLvl){
+			//Retardo en la mejora del edificio....
 			lvl++;
 			health.reset(startingHP[lvl - 1]);
 			graphics[lvl - 2].SetActive(false);
@@ -37,12 +38,12 @@ public class Ayuntamiento : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-		exp++;
-		if (exp > 50) {
-			exp = 0;
-			upgrade();
-		}
-	}
+	// void Update(){
+	// 	exp++;
+	// 	if (exp > 50) {
+	// 		exp = 0;
+	// 		upgrade();
+	// 	}
+	// }
 
 }

@@ -17,7 +17,7 @@ public class Turret : MonoBehaviour {
 	public float range;
 	private TurretRangeDetector rangeDetector;
 
-	private Health target;
+	// private Health target;
 
 	//Should be a setup method to be called when the player builds the tower
 	void Start(){
@@ -28,7 +28,7 @@ public class Turret : MonoBehaviour {
 		rangeDetector.setup(range);
 	}
 
-	void Update(){
-		target = rangeDetector.getBestTarget();
-	}
+	// void Update(){
+	// 	target = rangeDetector.getBestTarget();
+	// }
 }
