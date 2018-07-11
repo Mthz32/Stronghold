@@ -11,12 +11,9 @@ public class TurretShoot : MonoBehaviour {
 	private Transform shootPoint;
 	private bool ready_to_Shoot;
 
-	private float speed = 50f;
-	private int dmg = 75;
-
 	public void setup(Transform _shootPoint, float _fireRate, GameObject bulletPrefab){
 		pool = (BulletsPool) this.gameObject.GetComponent(typeof(BulletsPool));
-		pool.setup(bulletPrefab, speed, dmg);
+		pool.setup(bulletPrefab);
 		shootPoint = _shootPoint;
 		fireRate = _fireRate;
 		ready_to_Shoot = true;

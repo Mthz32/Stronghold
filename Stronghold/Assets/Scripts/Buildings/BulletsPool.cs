@@ -8,13 +8,8 @@ public class BulletsPool : MonoBehaviour {
 	private List<GameObject> bullets = new List<GameObject>();
 	private GameObject bulletPrefab;
 
-	private float bullet_speed;
-	private int bullet_dmg;
-
-	public void setup(GameObject _bulletPrefab, float sp, int dmg){
+	public void setup(GameObject _bulletPrefab){
 		bulletPrefab = _bulletPrefab;
-		bullet_speed = sp;
-		bullet_dmg = dmg;
 	}
 
 	public void startBullet(Transform start, Enemy end){
@@ -46,7 +41,7 @@ public class BulletsPool : MonoBehaviour {
 	private GameObject newBullet(){
 		GameObject b = (GameObject) Instantiate(bulletPrefab);
 		Bullet newBullet = (Bullet) b.GetComponent(typeof(Bullet));
-		newBullet.setup(bullet_speed, bullet_dmg);
+		newBullet.setup();
 		b.SetActive(false);
 		bullets.Add(b);
 		return b;

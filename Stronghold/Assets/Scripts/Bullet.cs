@@ -8,12 +8,10 @@ public class Bullet : MonoBehaviour {
 	private Transform targetTransform;
 	private bool going;
 
-	private float speed;
-	private int dmg;
+	[SerializeField]
+	private BulletStats stats;
 
-	public void setup(float _speed, int _dmg){
-		speed = _speed;
-		dmg = _dmg;
+	public void setup(){
 		going = false;
 	}
 
@@ -25,7 +23,7 @@ public class Bullet : MonoBehaviour {
 
 	private void Reached(){
 		if (targetHealth != null){
-			targetHealth.getDmg(dmg);
+			targetHealth.getDmg(stats.dmg);
 			if (!targetHealth.alive()){
 				//Get gold, lo que toque
 				targetHealth.Die();
@@ -49,7 +47,7 @@ public class Bullet : MonoBehaviour {
 			this.transform.position = Vector3.MoveTowards(
 				this.transform.position,
 				targetTransform.position,
-				speed * Time.deltaTime);
+				stats.speed * Time.deltaTime);
 			if (Vector3.Distance(this.transform.position, targetTransform.position) < 0.5f) Reached();
 		}
 	}
