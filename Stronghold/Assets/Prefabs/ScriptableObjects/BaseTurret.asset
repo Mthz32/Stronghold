@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681cb38d39502814db96a9d79fd31568, type: 3}
+  m_Name: BaseTurret
+  m_EditorClassIdentifier: 
+  lvl: 0
+  HP: 1000
+  range: 40
+  fireRate: 3
+  bulletPrefab: {fileID: 1828024163882808, guid: cc10fc81f52502d40b7a0de835cdae42,
+    type: 2}
+  graphicsPrefab: {fileID: 1359611550541012, guid: 299f95c36e503864380ec54750d8f0fc,
+    type: 2}
+  shootPoint: {fileID: 4521504681282366, guid: 299f95c36e503864380ec54750d8f0fc, type: 2}

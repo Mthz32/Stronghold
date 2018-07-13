@@ -9,13 +9,19 @@ public class TurretRangeDetector : MonoBehaviour {
 	private int[] targeteable_layers = new int[] {10};
 	private List<Enemy> posible_targets = new List<Enemy>();
 
-	private int[] filter_method_order = new int[] {0};
-	private bool searchForMaxHP = true;
+	private int[] filter_method_order = new int[] {0}; //****** HAY QUE PERMITIR
+	private bool searchForMaxHP = true; //*********************   MODIFICARLAS
 
 	public void setup(float range){
 		SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
 		sc.radius = range;
 		sc.isTrigger = true;
+	}
+
+	public void reset(float range){
+		SphereCollider sc = (SphereCollider) this.gameObject.GetComponent(typeof(SphereCollider));
+		sc.radius = range;
+		posible_targets = posible_targets.Where(t => distanceToTarget(t) <= range).ToList();
 	}
 
 	void OnTriggerEnter(Collider other) {

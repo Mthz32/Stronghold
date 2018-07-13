@@ -19,6 +19,12 @@ public class TurretShoot : MonoBehaviour {
 		ready_to_Shoot = true;
 	}
 
+	public void reset(Transform _shootPoint, float _fireRate, GameObject bulletPrefab){
+		shootPoint = _shootPoint;
+		fireRate = _fireRate;
+		pool.reset(bulletPrefab);
+	}
+
 	public bool isReady(){
 		return ready_to_Shoot;
 	}

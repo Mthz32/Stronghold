@@ -12,6 +12,15 @@ public class BulletsPool : MonoBehaviour {
 		bulletPrefab = _bulletPrefab;
 	}
 
+	public void reset(GameObject _bulletPrefab){
+		bulletPrefab = _bulletPrefab;
+		for(int i = bullets.Count; i >= 0; i--){
+			GameObject bullet = bullets.ElementAt(i);
+			bullets.Remove(bullet);
+			Destroy(bullet);
+		}
+	}
+
 	public void startBullet(Transform start, Enemy end){
 		GameObject b = getBullet();
 		b.transform.position = start.position;

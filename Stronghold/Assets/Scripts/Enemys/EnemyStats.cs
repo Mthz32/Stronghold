@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Enemy", menuName = "EnemyStats")]
+[CreateAssetMenu(fileName = "New Enemy", menuName = "Stats/Enemy")]
 public class EnemyStats : ScriptableObject {
 
 	public int lvl;

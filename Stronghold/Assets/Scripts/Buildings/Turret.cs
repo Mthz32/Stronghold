@@ -7,36 +7,46 @@ using UnityEngine;
 [RequireComponent(typeof(TurretShoot))]
 public class Turret : MonoBehaviour {
 
-	[Header("Health Settings")]
-	public int startingHP = 100;
-	private Health health;
+	[SerializeField]
+	private TurretStats stats;
+	[SerializeField]
+	[Tooltip("The graphics parent")]
+	public Transform GraphicsParent;
 	[SerializeField]
 	[Tooltip("HealthBarPrefab must be added as a child and dragged here")]
 	private HealthBarController HealthBar;
 
-	[Header("Shoot Settings")]
-	public float range;
-	public float fireRate;
-	[SerializeField]
-	[Tooltip("A empty GameObject which stores the inital position and rotation of each bullet")]
-	private Transform shootPoint;
-	[SerializeField]
-	[Tooltip("The bullet gameObject Prefab")]
-	private GameObject bulletPrefab;
-
+	private Health health;
 	private TurretRangeDetector rangeDetector;
 	private TurretShoot shootManager;
+
+	private GameObject actualGraphics;
 
 	//Should be a setup method to be called when the player builds the tower
 	void Start(){
 		health = (Health) this.gameObject.GetComponent(typeof(Health));
-		health.setup(startingHP, HealthBar);
+		health.setup(stats.HP, HealthBar);
 
 		rangeDetector = (TurretRangeDetector) this.gameObject.GetComponent(typeof(TurretRangeDetector));
-		rangeDetector.setup(range);
+		rangeDetector.setup(stats.range);
+
+		actualGraphics = (GameObject) Instantiate(stats.graphicsPrefab, GraphicsParent);
+		TurretGraphics tg = (TurretGraphics) actualGraphics.GetComponent(typeof(TurretGraphics));
 
 		shootManager = (TurretShoot) this.gameObject.GetComponent(typeof(TurretShoot));
-		shootManager.setup(shootPoint, fireRate, bulletPrefab);
+		shootManager.setup(tg.shootPoint, stats.fireRate, stats.bulletPrefab);
+	}
+
+	void reset(TurretStats newStats){
+		Destroy(actualGraphics);
+		actualGraphics = (GameObject) Instantiate(newStats.graphicsPrefab, GraphicsParent);
+		TurretGraphics tg = (TurretGraphics) actualGraphics.GetComponent(typeof(TurretGraphics));
+
+		health.reset(newStats.HP);
+		rangeDetector.reset(newStats.range);
+		shootManager.reset(tg.shootPoint, newStats.fireRate, newStats.bulletPrefab);
+		
+		stats = newStats;
 	}
 
 	void Update(){
