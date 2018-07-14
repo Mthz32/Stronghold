@@ -14,12 +14,19 @@ public class Turret : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("Building / Upgrading turret graphics")]
 	private GameObject Lvl0Graphics;
+	//**********************************************************
+	// campo necesario si se requiere mover la barra de vida en
+	// function de los graficos de los distintos niveles de torre
 	// [SerializeField]
 	// [Tooltip("The HealthBar parent")]
 	// private Transform HealthBarParent;
+	//**********************************************************
 	[SerializeField]
 	[Tooltip("HealthBarPrefab must be added as a child and dragged here")]
 	private HealthBarController HealthBar;
+	[SerializeField]
+	[Tooltip("UpgradingBarPrefab must be added as a child and dragged here")]
+	private UpgradingBarController UpgradingBar;
 
 	private Health health;
 	private TurretRangeDetector rangeDetector;
@@ -42,6 +49,7 @@ public class Turret : MonoBehaviour {
 	}
 
 	public void reset(TurretStats newStats){
+		//Quiza el tema graficos deberia ir junto con la corrutina y la barra de upgrade
 		Destroy(actualGraphics);
 		Lvl0Graphics.SetActive(true);
 
@@ -55,8 +63,15 @@ public class Turret : MonoBehaviour {
 	}
 
 	private IEnumerator activate(float buildingTime, bool firstTime){
-		//Start building bar animation
-		yield return new WaitForSeconds(buildingTime);
+		if (!firstTime) UpgradingBar.gameObject.SetActive(true);
+
+		float timeInc = UpgradingBar.setup(buildingTime, 100);
+		while(!UpgradingBar.ended()){
+			UpgradingBar.nextFrame();
+			yield return new WaitForSeconds(timeInc);
+		}
+		UpgradingBar.gameObject.SetActive(false);
+
 		health.reset(stats.HP);
 
 		actualGraphics = (GameObject) Instantiate(stats.graphicsPrefab, GraphicsParent);
