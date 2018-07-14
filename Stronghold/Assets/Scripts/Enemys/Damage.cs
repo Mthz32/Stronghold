@@ -21,7 +21,7 @@ public class Damage : MonoBehaviour {
 	}
 
 	public IEnumerator inRange(Health target){
-		while (rangeDetector.isTargetOnRange()){ // && this unit is not dead?¿?¿
+		while (rangeDetector.isTargetOnRange()){
 			//Animaciones de ataque
 			yield return new WaitForSeconds(1 / atack_speed);
 			if (rangeDetector.isTargetOnRange()) {

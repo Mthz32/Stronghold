@@ -48,15 +48,17 @@ public class Turret : MonoBehaviour {
 		StartCoroutine(activate(stats.buildingTime, true));
 	}
 
+	//Quiza el tema graficos deberia ir junto con la corrutina y la barra de upgrade
+	//Quiza el hp haya que establecerlo al menor entre la nueva / rate y el hp actual
+	//(enplan si te quedan 3 de vida de la torre que no suba a 300 al mejorarla)
+	//(o quiza esto justo sea cundente que sea asi)
 	public void reset(TurretStats newStats){
-		//Quiza el tema graficos deberia ir junto con la corrutina y la barra de upgrade
 		Destroy(actualGraphics);
 		Lvl0Graphics.SetActive(true);
 
 		shootManager.prepareReset();
-		health.reset((int) Mathf.Floor(newStats.HP * stats.buildingHpReductionRate));
 		rangeDetector.reset(newStats.range);
-
+		health.reset((int) Mathf.Floor(newStats.HP * stats.buildingHpReductionRate));
 		stats = newStats;
 
 		StartCoroutine(activate(stats.buildingTime, false));

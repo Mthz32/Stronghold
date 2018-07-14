@@ -16,5 +16,5 @@ public class TurretStats : ScriptableObject {
 
 	public GameObject graphicsPrefab;
 	public GameObject bulletPrefab;
-	//bullet stats
+
 }

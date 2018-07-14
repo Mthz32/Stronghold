@@ -10,30 +10,20 @@ using System.Linq;
 [RequireComponent(typeof(Damage))]
 public class Enemy : MonoBehaviour {
 
-	private List<Health> targets;
-
+	//****temporal as SerializeField
 	[SerializeField]
 	private EnemyStats stats;
-
-	// [Header("Health Settings")]
-	// public int startingHP = 100;
-	private Health health;
+	//*****************************
 	[SerializeField]
 	[Tooltip("HealthBarPrefab must be added as a child and dragged here")]
 	private HealthBarController HealthBar;
 
-	// [Header("Movement Settings")]
-	// public float atackRange;
-	// public float velocity;
-	// public float aceleration;
+	private Health health;
 	private EnemyMovement movementController;
 	private EnemyRangeDetector rd;
-
-	// [Header("Damage Settings")]
-	// public float atackSpeed;
-	// public int dmg;
-	// public bool turretPriority;
 	private Damage dmgController;
+
+	private List<Health> targets;
 
 	public void setup(List<Health> _targets){
 		targets = _targets;
