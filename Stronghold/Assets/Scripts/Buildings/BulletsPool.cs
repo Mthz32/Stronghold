@@ -12,13 +12,20 @@ public class BulletsPool : MonoBehaviour {
 		bulletPrefab = _bulletPrefab;
 	}
 
-	public void reset(GameObject _bulletPrefab){
-		bulletPrefab = _bulletPrefab;
-		for(int i = bullets.Count; i >= 0; i--){
+	public void clean(bool destroyGO){
+		for(int i = bullets.Count - 1; i >= 0; i--){
 			GameObject bullet = bullets.ElementAt(i);
 			bullets.Remove(bullet);
-			Destroy(bullet);
+			if (!bullet.activeSelf || destroyGO) Destroy(bullet);
+			else {
+				Bullet b = (Bullet) bullet.GetComponent(typeof(Bullet));
+				b.DestroyAtEnd();
+			}
 		}
+	}
+
+	public void reset(GameObject _bulletPrefab){
+		bulletPrefab = _bulletPrefab;
 	}
 
 	public void startBullet(Transform start, Enemy end){

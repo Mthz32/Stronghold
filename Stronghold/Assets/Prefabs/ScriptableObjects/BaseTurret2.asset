@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 681cb38d39502814db96a9d79fd31568, type: 3}
-  m_Name: BaseTurret
+  m_Name: BaseTurret2
   m_EditorClassIdentifier: 
-  lvl: 0
-  HP: 1000
-  range: 40
-  fireRate: 9
-  buildingTime: 2
+  lvl: 1
+  HP: 2000
+  range: 20
+  fireRate: 5
+  buildingTime: 5
   buildingHpReductionRate: 0.2
-  graphicsPrefab: {fileID: 1359611550541012, guid: 299f95c36e503864380ec54750d8f0fc,
+  graphicsPrefab: {fileID: 1958343021704198, guid: 8375edbee802c534abfc17de825d5ff7,
     type: 2}
-  bulletPrefab: {fileID: 1828024163882808, guid: cc10fc81f52502d40b7a0de835cdae42,
+  bulletPrefab: {fileID: 1003939362073142, guid: b5611b6db114aed408d53e7ec08c97dd,
     type: 2}

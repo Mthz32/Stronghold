@@ -7,12 +7,18 @@ public class Bullet : MonoBehaviour {
 	private Health targetHealth;
 	private Transform targetTransform;
 	private bool going;
+	private bool destroy;
 
 	[SerializeField]
 	private BulletStats stats;
 
 	public void setup(){
 		going = false;
+		destroy = false;
+	}
+
+	public void DestroyAtEnd(){
+		destroy = true;
 	}
 
 	public void go(Health target){
@@ -30,12 +36,14 @@ public class Bullet : MonoBehaviour {
 			}
 		}
 		going = false;
-		this.gameObject.SetActive(false);
+		if (!destroy) this.gameObject.SetActive(false);
+		else Destroy(this.gameObject);
 	}
 
 	private void Avoid(){
 		going = false;
-		this.gameObject.SetActive(false);
+		if (!destroy) this.gameObject.SetActive(false);
+		else Destroy(this.gameObject);
 	}
 
 	void Update(){

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 315dec31d87b94e49866a2e532ad06a6, type: 3}
-  m_Name: BaseBullet
+  m_Name: BaseBullet2
   m_EditorClassIdentifier: 
-  speed: 50
-  dmg: 5
+  speed: 40
+  dmg: 140
