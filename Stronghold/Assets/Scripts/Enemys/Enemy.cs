@@ -10,10 +10,16 @@ using System.Linq;
 [RequireComponent(typeof(Damage))]
 public class Enemy : MonoBehaviour {
 
-	//****temporal as SerializeField
 	[SerializeField]
-	private EnemyStats stats;
-	//*****************************
+	[Tooltip("The graphics parent")]
+	private Transform GraphicsParent;
+	//**********************************************************
+	// campo necesario si se requiere mover la barra de vida en
+	// function de los graficos de los distintos enemigos
+	// [SerializeField]
+	// [Tooltip("The HealthBar parent")]
+	// private Transform HealthBarParent;
+	//**********************************************************
 	[SerializeField]
 	[Tooltip("HealthBarPrefab must be added as a child and dragged here")]
 	private HealthBarController HealthBar;
@@ -24,9 +30,12 @@ public class Enemy : MonoBehaviour {
 	private Damage dmgController;
 
 	private List<Health> targets;
+	private EnemyStats stats;
 
-	public void setup(List<Health> _targets){
+	public void setup(List<Health> _targets, EnemyStats _stats){
 		targets = _targets;
+		stats = _stats;
+		Instantiate(stats.graphicsPrefab, GraphicsParent);
 
 		health = (Health) this.gameObject.GetComponent(typeof(Health));
 		health.setup(stats.HP, HealthBar);

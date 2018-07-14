@@ -15,4 +15,6 @@ public class EnemyStats : ScriptableObject {
 	public float atackSpeed;
 	public int dmg;
 	public bool turretPriority;
+
+	public GameObject graphicsPrefab;
 }

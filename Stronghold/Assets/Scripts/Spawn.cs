@@ -6,6 +6,7 @@ using System.Linq;
 public class Spawn : MonoBehaviour {
 
 	public GameObject enemy;
+	public EnemyStats[] enemyStats;
 
 	public Transform spawnPoint;
 
@@ -20,7 +21,7 @@ public class Spawn : MonoBehaviour {
 		for (int i = 0; i < 2; i++) {
 			GameObject g = (GameObject) Instantiate(enemy, spawnPoint.position, Quaternion.identity);
 			Enemy e = (Enemy) g.gameObject.GetComponent(typeof(Enemy));
-			e.setup(targets);
+			e.setup(targets, enemyStats[i]);
 			enemys.Add(e);
 		}
 

@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 816f730ba1b142048894b54dc9f13fb1, type: 3}
-  m_Name: BaseEnemy
+  m_Name: BaseEnemy2
   m_EditorClassIdentifier: 
-  lvl: 0
-  velocity: 10
+  lvl: 1
+  velocity: 2
   aceleration: 60
-  HP: 400
-  atackRange: 5
-  atackSpeed: 5
-  dmg: 10
+  HP: 800
+  atackRange: 4
+  atackSpeed: 2
+  dmg: 150
   turretPriority: 1
-  graphicsPrefab: {fileID: 1725402921064688, guid: 07a19c75eeb3df149aafa31b37a08e78,
+  graphicsPrefab: {fileID: 1674061188624268, guid: c56a561a9baebb447a329d890bfcf9a3,
     type: 2}

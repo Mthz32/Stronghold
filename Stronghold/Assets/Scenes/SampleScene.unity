@@ -665,6 +665,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1346822499803778, guid: efc5d8ceb18488a45b83dfa033e38f1c, type: 2}
+  enemyStats:
+  - {fileID: 11400000, guid: 615388e013f010649b84ca625839125e, type: 2}
+  - {fileID: 11400000, guid: 1f35da431a12ae546862b265586f4028, type: 2}
   spawnPoint: {fileID: 966545210}
   targets:
   - {fileID: 2092856120}
