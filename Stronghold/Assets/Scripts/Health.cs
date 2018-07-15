@@ -33,4 +33,7 @@ public class Health : MonoBehaviour {
 	public bool alive(){
 		return (hp > 0);
 	}
+	public int GetHP(){
+		return hp;
+	}
 }

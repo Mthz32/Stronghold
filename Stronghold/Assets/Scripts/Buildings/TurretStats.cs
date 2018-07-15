@@ -13,6 +13,8 @@ public class TurretStats : ScriptableObject {
 
 	public float buildingTime;
 	public float buildingHpReductionRate;
+	//public bool flying_targets
+	//public bool ground_targets
 
 	public GameObject graphicsPrefab;
 	public GameObject bulletPrefab;

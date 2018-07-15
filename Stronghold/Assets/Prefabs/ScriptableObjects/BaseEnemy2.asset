@@ -18,6 +18,6 @@ MonoBehaviour:
   atackRange: 4
   atackSpeed: 2
   dmg: 150
-  turretPriority: 1
+  turretPriority: 0
   graphicsPrefab: {fileID: 1674061188624268, guid: c56a561a9baebb447a329d890bfcf9a3,
     type: 2}

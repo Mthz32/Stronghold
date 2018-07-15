@@ -70,6 +70,9 @@ public class Enemy : MonoBehaviour {
 	public EnemyStats getStats(){
 		return stats;
 	}
+	public int getHP(){
+		return health.GetHP();
+	}
 	public float getDistanceToTarget(){
 		return movementController.distance();
 	}
