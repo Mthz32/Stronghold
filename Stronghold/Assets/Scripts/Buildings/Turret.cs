@@ -34,6 +34,8 @@ public class Turret : MonoBehaviour {
 
 	private GameObject actualGraphics;
 
+	//targeteable layer --> turretRangeDetector
+	//own layer to all the GO.
 	public void setup(TurretStats newStats){
 		stats = newStats;
 
@@ -58,7 +60,7 @@ public class Turret : MonoBehaviour {
 
 		shootManager.prepareReset();
 		rangeDetector.reset(newStats.range);
-		health.reset((int) Mathf.Floor(newStats.HP * stats.buildingHpReductionRate));
+		health.reset((int) Mathf.Floor(newStats.HP * newStats.buildingHpReductionRate));
 		stats = newStats;
 
 		StartCoroutine(activate(stats.buildingTime, false));

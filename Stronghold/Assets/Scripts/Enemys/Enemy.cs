@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour {
 	private List<Health> targets;
 	private EnemyStats stats;
 
+	//targeteable layers to EnemyRangeDetector
+	//own layer to all the GO.
 	public void setup(List<Health> _targets, EnemyStats _stats){
 		targets = _targets;
 		stats = _stats;

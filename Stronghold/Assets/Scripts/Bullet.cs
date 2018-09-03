@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour {
 
 	private void Reached(){
 		if (targetHealth != null){
+			//AREA DMG?¿ --> GET ALL GOs IN A SPHERE (weighted by distance to bullet)
 			targetHealth.getDmg(stats.dmg);
 			if (!targetHealth.alive()){
 				//Get gold, lo que toque
